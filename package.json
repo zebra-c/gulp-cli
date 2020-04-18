@@ -8,6 +8,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "homepage": "https://github.com/zebra-c/gulp-cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zebra-c/gulp-cli.git"
+  },
   "dependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.6.5",
