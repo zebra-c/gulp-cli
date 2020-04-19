@@ -6,6 +6,7 @@ const gulpwebpack = require("webpack-stream");
 const rename = require("gulp-rename");
 const replace = require("gulp-replace");
 const less = require("gulp-less");
+const program = require("commander");
 const cleanCSS = require("gulp-clean-css");
 const plumber = require("gulp-plumber");
 const autoprefixer = require("gulp-autoprefixer");
@@ -15,15 +16,22 @@ const webpackConfig = require("./webpack.config");
 const cwd = process.cwd();
 const log = console.log;
 
-let processArgs = process.argv.slice(2).reduce((memo, current, index, arr) => {
-  if (current.startsWith("--")) {
-    memo[current.slice(2)] = arr[index + 1];
-  }
-  return memo;
-}, {});
-const { folder = "", mode = "development" } = processArgs || {};
+function commaSeparatedList(value) {
+  return value.split(",");
+}
+program
+  .option("-F, --folder <items>", "设置监听文件夹", commaSeparatedList)
+  .option("-M, --mode [type]", "设置环境变量");
 
-const watchPath = folder.split("+").map((item) => {
+program.parse(process.argv);
+const folder = program.folder;
+const mode = program.mode || "production";
+
+if (!folder) {
+  log(chalk.red("请指定监听文件名，格式: gulp watch -F www,admin"));
+  process.exit(0);
+}
+const watchPath = folder.map((item) => {
   return path.join(cwd, "resources/assets", item, "**");
 });
 
