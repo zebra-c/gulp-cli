@@ -1,6 +1,6 @@
 {
   "name": "@zebra-c/gulp-cli",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "zebra gulp cli",
   "main": "gulpfile.js",
   "author": "zebra-c",
