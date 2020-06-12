@@ -32,7 +32,7 @@ if (!folder) {
   process.exit(0);
 }
 const watchPath = folder.map((item) => {
-  return path.join(cwd, "resources/assets", item, "**");
+  return path.join(cwd, "resources/assets", item, "**").replace(/\\/g, "/");
 });
 
 process.on("unhandledRejection", (reason, p) => {
@@ -76,6 +76,7 @@ function compilecss(fileName) {
     .dirname(from)
     .replace("resources/assets", "public")
     .replace("/less/", "/css/");
+  console.log(from, to);
   const compiler = () => {
     src(from)
       .pipe(plumber())
